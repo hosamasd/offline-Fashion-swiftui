@@ -12,6 +12,8 @@ struct HomeItemView: View {
     var car :Item
     @Binding var items:[GridItem]
     @StateObject var cartVM = CartViewModel()
+    @AppStorage("favorite") var isFavorite = false
+    @AppStorage("checkout") var isCheckout = false
     
     var body: some View {
         
@@ -31,6 +33,7 @@ struct HomeItemView: View {
                         
                         
                         Button(action: {
+                            isFavorite = true
                             if cartVM.favoritesItems.contains(where: {$0.id==car.id}){
                                 cartVM.favoritesItems.removeAll(where: {$0.id==car.id})
                             }else{
@@ -49,11 +52,13 @@ struct HomeItemView: View {
                         Spacer()
                         
                         Button(action: {
+                            isCheckout = true
                             if cartVM.checkoutItems.contains(where: {$0.id==car.id}){
                                 cartVM.checkoutItems.removeAll(where: {$0.id==car.id})
                             }else{
                                 cartVM.checkoutItems.append(car)
                             }
+                           
                         }, label: {
                             
                             Image(systemName: check() ? "cart.fill.badge.minus" : "cart.fill.badge.plus")

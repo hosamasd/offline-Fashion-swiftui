@@ -12,7 +12,11 @@ struct TabBarView: View {
     @State var search = ""
     @State var index = 0
     @State var tabIndex = 1
+    @StateObject var vm = CartViewModel()
     
+    @AppStorage("favorite") var isFavorite = false
+    @AppStorage("checkout") var isCheckout = false
+
     var body: some View {
        
         ZStack{
@@ -30,9 +34,10 @@ struct TabBarView: View {
 //                Home()
                 SecondHome()
             }else if tabIndex == 0 {
-                ScrollView{
-                Text("favorites")
-                }
+                HomeFavorite()
+//                ScrollView{
+//                Text("favorites")
+//                }
             }else {
                 HomeCheckout()
 //                ScrollView{
@@ -47,15 +52,24 @@ struct TabBarView: View {
                 Button(action: {
                     
                     tabIndex = 0
-                    
+                    self.isFavorite=false
                 }, label: {
                     
-                    Image(systemName: "suit.heart.fill")
-                        .font(.system(size: 20))
-                        .foregroundColor(tabIndex == 0 ? .white : Color("Color"))
-                        .padding(.all)
-                        .background(Color("Color").opacity(tabIndex == 0 ? 1 : 0))
-                        .clipShape(Circle())
+                    HStack {
+                        
+                        Text("New")
+                            .foregroundColor(Color.red)
+                            .offset(x:90,y:-20)
+                            .opacity(isFavorite ? 1 : 0)
+                        
+                        
+                        Image(systemName: "suit.heart.fill")
+                            .font(.system(size: 20))
+                            .foregroundColor(tabIndex == 0 ? .white : Color("Color"))
+                            .padding(.all)
+                            .background(Color("Color").opacity(tabIndex == 0 ? 1 : 0))
+                            .clipShape(Circle())
+                    }
                 })
                 
                 Spacer(minLength: 0)
@@ -79,15 +93,25 @@ struct TabBarView: View {
                 Button(action: {
                     
                     tabIndex = 2
-                    
+                    self.isCheckout=false
                 }, label: {
                     
-                    Image(systemName: "cart.fill")
-                        .font(.system(size: 20))
-                        .foregroundColor(tabIndex == 2 ? .white : Color("Color"))
-                        .padding(.all)
-                        .background(Color("Color").opacity(tabIndex == 2 ? 1 : 0))
-                        .clipShape(Circle())
+                    HStack {
+                        
+                       
+                        Text("New")
+                            .foregroundColor(Color.red)
+                            .offset(x:20,y:-20)
+                            .opacity(isCheckout ? 1 : 0)
+                        
+                            
+                        Image(systemName: "cart.fill")
+                            .font(.system(size: 20))
+                            .foregroundColor(tabIndex == 2 ? .white : Color("Color"))
+                            .padding(.all)
+                            .background(Color("Color").opacity(tabIndex == 2 ? 1 : 0))
+                            .clipShape(Circle())
+                    }
                 })
             }
             .padding(.top)
