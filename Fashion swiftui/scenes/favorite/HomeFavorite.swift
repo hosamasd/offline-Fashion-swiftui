@@ -9,7 +9,7 @@ import SwiftUI
 
 struct HomeFavorite: View {
     
-    @StateObject var vm = CartViewModel()
+    @EnvironmentObject var vm: CartViewModel
     @State var items = Array(repeating: GridItem(spacing:15), count: 2)
     @State var link = ""
     @State var show = false

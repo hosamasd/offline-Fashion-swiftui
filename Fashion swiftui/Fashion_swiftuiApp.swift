@@ -9,9 +9,13 @@ import SwiftUI
 
 @main
 struct Fashion_swiftuiApp: App {
+    
+    var order = CartViewModel()
+    var favorite = CartViewModel()
+    
     var body: some Scene {
         WindowGroup {
-            ContentView()
+            ContentView().environmentObject(order).environmentObject(favorite)
         }
     }
 }

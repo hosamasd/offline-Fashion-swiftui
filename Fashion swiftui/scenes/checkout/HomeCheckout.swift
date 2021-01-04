@@ -7,12 +7,14 @@
 
 import SwiftUI
 
+var topHeight:CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 40
+
 struct HomeCheckout: View {
     
-    @StateObject var cartData = CartViewModel()
+    @EnvironmentObject var cartData: CartViewModel
 //    @State var data = cacheCheckout.storedValue ?? [Item]()
     @State var rightOrLeft = false
-    var topHeight:CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 40
+   
     @State var added = false
     var body: some View {
         
@@ -75,37 +77,37 @@ struct HomeCheckout: View {
                         self.added.toggle()
                     }) {
                         
-                        Label(title: {
-                            Text(added ? "Done" : "Check out")
-                                .font(.title2)
-                                .foregroundColor(.black)
-                                .fontWeight(.heavy)
-                        }) {
-                            
-                            Image(systemName: added ? "checkmark.circle.fill" : "cart.fill")
-                                .font(.system(size: 22))
-                                .foregroundColor(.black)
-                        }
-                        
-//                        Text("Check out")
-//                            .font(.title2)
-//                            .fontWeight(.heavy)
-//                            .foregroundColor(.white)
-//                            .padding(.vertical)
-//                            .frame(width: UIScreen.main.bounds.width - 30)
-//                            .background(
+//                        Label(title: {
+//                            Text(added ? "Done" : "Check out")
+//                                .font(.title2)
+//                                .foregroundColor(.black)
+//                                .fontWeight(.heavy)
+//                        }) {
 //
-//                                LinearGradient(gradient: .init(colors: [Color("lightblue"),Color("blue")]), startPoint: .leading, endPoint: .trailing)
-//                            )
-//                            .cornerRadius(15)
+//                            Image(systemName: added ? "checkmark.circle.fill" : "cart.fill")
+//                                .font(.system(size: 22))
+//                                .foregroundColor(.black)
+//                        }
+                        
+                        Text("Check out")
+                            .font(.title2)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.white)
+                            .padding(.vertical)
+                            .frame(width: UIScreen.main.bounds.width - 30)
+                            .background(
+
+                                LinearGradient(gradient: .init(colors: [Color("lightblue"),Color("blue")]), startPoint: .leading, endPoint: .trailing)
+                            )
+                            .cornerRadius(15)
                     }
-                    .padding(.vertical)
-                    // padding 30 + 45 = 75
-                    .frame(width: UIScreen.main.bounds.width - 30)
-                    .background(added ? Color.green : Color("red"))
-                    .clipShape(Capsule())
-//                    .padding(.leading,-45)
-                    .padding(.top)
+//                    .padding(.vertical)
+//                    // padding 30 + 45 = 75
+//                    .frame(width: UIScreen.main.bounds.width - 30)
+//                    .background(added ? Color.green : Color("red"))
+//                    .clipShape(Capsule())
+////                    .padding(.leading,-45)
+//                    .padding(.top)
                 }
                 .background(Color.white)
                 
@@ -118,6 +120,15 @@ struct HomeCheckout: View {
             
             
         }
+        // Alert View...
+        .alert(isPresented: $added, content: {
+            Alert(title: Text("SUCCESS"), message: Text("your orders maded\n thanks"), dismissButton: .default(Text("OK"), action: {
+                // Do Some Code Here...
+                self.added.toggle()
+//                self.cartData.checkoutItems.removeAll()
+            })
+           )
+        })
         //        .background(Color("gray").ignoresSafeArea())
         
     }

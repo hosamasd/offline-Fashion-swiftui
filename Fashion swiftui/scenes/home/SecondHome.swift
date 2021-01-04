@@ -13,7 +13,6 @@ struct SecondHome: View {
     @State var tabIndex = 1
     @StateObject var vm = CartViewModel()
     @State var items = Array(repeating: GridItem(spacing:15), count: 2)
-
     
     var body: some View {
         
@@ -111,8 +110,9 @@ struct SecondHome: View {
                 .padding(.top, 10)
             }
             // due to all edges are ignored....
-            .padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
-            .padding(.bottom)
+            .padding(.top,topHeight-20)
+//            .padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
+//            .padding(.bottom)
             
             // Row View....
             
@@ -120,12 +120,17 @@ struct SecondHome: View {
 //
 //                withAnimation(Animation.linear){
             
+            if !vm.items.isEmpty {
+            
             LazyVGrid(columns: items) {
                 ForEach(vm.items) {card in
                     HomeItemView(car: card, items: $items)
                 }
             }
             .padding()
+            }else {
+                ProgressView()
+            }
 //                }
 //            }
             
@@ -135,6 +140,7 @@ struct SecondHome: View {
         // due to all edges are ignored....
         .padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
         .padding(.bottom)
+      
     }
 }
 

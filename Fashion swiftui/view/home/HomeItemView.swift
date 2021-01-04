@@ -11,7 +11,8 @@ struct HomeItemView: View {
    
     var car :Item
     @Binding var items:[GridItem]
-    @StateObject var cartVM = CartViewModel()
+//    @StateObject var cartVM = CartViewModel()
+    @EnvironmentObject var cartVM: CartViewModel
     @AppStorage("favorite") var isFavorite = false
     @AppStorage("checkout") var isCheckout = false
     
@@ -35,12 +36,8 @@ struct HomeItemView: View {
                         Button(action:
 //                                favorite
                                 {
-                            isFavorite = true
-                            if cartVM.favoritesItems.contains(where: {$0.id==car.id}){
-                                cartVM.favoritesItems.removeAll(where: {$0.id==car.id})
-                            }else{
-                                cartVM.favoritesItems.append(car)
-                            }
+                                    cartVM.addFavorite(item: car)
+                                    isFavorite = true
 
                         }
                                , label: {
@@ -54,21 +51,14 @@ struct HomeItemView: View {
                         
                         Spacer()
                         
-                        Button(action:
-//                                checkout
-                                {
-                            isCheckout = true
-                            if cartVM.checkoutItems.contains(where: {$0.id==car.id}){
-                                cartVM.checkoutItems.removeAll(where: {$0.id==car.id})
-                            }else{
-                                cartVM.checkoutItems.append(car)
-                            }
-
+                        Button(action: {
+                                cartVM.addCheckout(item: car)
+                            isCheckout=true
                         }
                                , label: {
                             
                             Image(systemName: check() ? "cart.fill.badge.minus" : "cart.fill.badge.plus")
-                                .foregroundColor(.black)
+                                .foregroundColor(check() ? .green : .black)
                                 .padding(.all, 10)
                                 .background(Color.white)
                                 .clipShape(Circle())
