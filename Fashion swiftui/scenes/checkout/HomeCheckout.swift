@@ -8,13 +8,14 @@
 import SwiftUI
 
 struct HomeCheckout: View {
-   
+    
     @StateObject var cartData = CartViewModel()
+//    @State var data = cacheCheckout.storedValue ?? [Item]()
     @State var rightOrLeft = false
     var topHeight:CGFloat = UIApplication.shared.windows.first?.safeAreaInsets.top ?? 40
-    
+    @State var added = false
     var body: some View {
-       
+        
         VStack {
             
             HStack {
@@ -28,68 +29,102 @@ struct HomeCheckout: View {
                 
                 Spacer()
                 
-             
-            }
-            .padding(.top,topHeight-20)
-//            .padding()
-            
-            ScrollView(.vertical, showsIndicators: false) {
                 
-                LazyVStack(spacing: 0){
+            }
+            .padding()
+            .padding(.top,topHeight-20)
+            
+            //            VStack {
+            
+            if !cartData.checkoutItems.isEmpty {
+                ScrollView(.vertical, showsIndicators: false) {
                     
-                    ForEach(cartData.items){item in
+                    LazyVStack(spacing: 0){
                         
-                        // ItemView...
-                        ItemView(item: $cartData.items[getIndex(item: item)],items: $cartData.items,rightOrLeft: $rightOrLeft)
+                        ForEach(cartData.checkoutItems){item in
+                            
+                            // ItemView...
+                            ItemView(item: $cartData.checkoutItems[getIndex(item: item)],items: $cartData.checkoutItems,rightOrLeft: $rightOrLeft)
+                        }
                     }
                 }
-            }
-            
-            // Bottom View...
-            
-            VStack{
                 
-                HStack{
-                    
-                    Text("Total")
-                        .fontWeight(.heavy)
-                        .foregroundColor(.gray)
-                    
-                    Spacer()
-                    
-                    // calculating Total Price...
-                    Text(calculateTotalPrice())
-                        .font(.title)
-                        .fontWeight(.heavy)
-                        .foregroundColor(.black)
-                }
-                .padding([.top,.horizontal])
                 
-                Button(action: {}) {
+                // Bottom View...
+                
+                VStack{
                     
-                    Text("Check out")
-                        .font(.title2)
-                        .fontWeight(.heavy)
-                        .foregroundColor(.white)
-                        .padding(.vertical)
-                        .frame(width: UIScreen.main.bounds.width - 30)
-                        .background(
+                    HStack{
                         
-                            LinearGradient(gradient: .init(colors: [Color("lightblue"),Color("blue")]), startPoint: .leading, endPoint: .trailing)
-                        )
-                        .cornerRadius(15)
+                        Text("Total")
+                            .fontWeight(.heavy)
+                            .foregroundColor(.gray)
+                        
+                        Spacer()
+                        
+                        // calculating Total Price...
+                        Text(calculateTotalPrice())
+                            .font(.title)
+                            .fontWeight(.heavy)
+                            .foregroundColor(.black)
+                    }
+                    .padding([.top,.horizontal])
+                    
+                    Button(action: {
+                        
+                        self.added.toggle()
+                    }) {
+                        
+                        Label(title: {
+                            Text(added ? "Done" : "Check out")
+                                .font(.title2)
+                                .foregroundColor(.black)
+                                .fontWeight(.heavy)
+                        }) {
+                            
+                            Image(systemName: added ? "checkmark.circle.fill" : "cart.fill")
+                                .font(.system(size: 22))
+                                .foregroundColor(.black)
+                        }
+                        
+//                        Text("Check out")
+//                            .font(.title2)
+//                            .fontWeight(.heavy)
+//                            .foregroundColor(.white)
+//                            .padding(.vertical)
+//                            .frame(width: UIScreen.main.bounds.width - 30)
+//                            .background(
+//
+//                                LinearGradient(gradient: .init(colors: [Color("lightblue"),Color("blue")]), startPoint: .leading, endPoint: .trailing)
+//                            )
+//                            .cornerRadius(15)
+                    }
+                    .padding(.vertical)
+                    // padding 30 + 45 = 75
+                    .frame(width: UIScreen.main.bounds.width - 30)
+                    .background(added ? Color.green : Color("red"))
+                    .clipShape(Capsule())
+//                    .padding(.leading,-45)
+                    .padding(.top)
+                }
+                .background(Color.white)
+                
+            }else {
+                ScrollView {
+                    Text("no Checkout added yet.....")
                 }
             }
-            .background(Color.white)
+            
+            
             
         }
-//        .background(Color("gray").ignoresSafeArea())
+        //        .background(Color("gray").ignoresSafeArea())
         
     }
     
     func getIndex(item: Item)->Int{
         
-        return cartData.items.firstIndex { (item1) -> Bool in
+        return cartData.checkoutItems.firstIndex { (item1) -> Bool in
             return item.id == item1.id
         } ?? 0
     }
@@ -97,8 +132,10 @@ struct HomeCheckout: View {
     func calculateTotalPrice()->String{
         
         var price : Float = 0
-        
-        cartData.items.forEach { (item) in
+//        var ss = cacheCheckout.storedValue ?? [Item]()
+        var ss = cartData.checkoutItems
+//
+        ss.forEach { (item) in
             price += Float(item.quantity) * item.price
         }
         

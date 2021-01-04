@@ -21,6 +21,7 @@
 		4ECB0DE825A1E31A00A375AC /* HomeCheckout.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB0DE725A1E31A00A375AC /* HomeCheckout.swift */; };
 		4ECB0DED25A1E65900A375AC /* HomeItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB0DEC25A1E65900A375AC /* HomeItemView.swift */; };
 		4ECB0DF425A1E7D100A375AC /* SecondHome.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECB0DF325A1E7D100A375AC /* SecondHome.swift */; };
+		4ECFA77325A20900004EBC22 /* LocalJSONStore.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ECFA77225A20900004EBC22 /* LocalJSONStore.swift */; };
 		4ED54B2825A1F8E600679CE7 /* HomeFavorite.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED54B2725A1F8E600679CE7 /* HomeFavorite.swift */; };
 		4ED54B2B25A1F9D000679CE7 /* FavoriteItemView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4ED54B2A25A1F9D000679CE7 /* FavoriteItemView.swift */; };
 /* End PBXBuildFile section */
@@ -42,6 +43,7 @@
 		4ECB0DE725A1E31A00A375AC /* HomeCheckout.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeCheckout.swift; sourceTree = "<group>"; };
 		4ECB0DEC25A1E65900A375AC /* HomeItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeItemView.swift; sourceTree = "<group>"; };
 		4ECB0DF325A1E7D100A375AC /* SecondHome.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SecondHome.swift; sourceTree = "<group>"; };
+		4ECFA77225A20900004EBC22 /* LocalJSONStore.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocalJSONStore.swift; sourceTree = "<group>"; };
 		4ED54B2725A1F8E600679CE7 /* HomeFavorite.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HomeFavorite.swift; sourceTree = "<group>"; };
 		4ED54B2A25A1F9D000679CE7 /* FavoriteItemView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FavoriteItemView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -77,6 +79,7 @@
 			isa = PBXGroup;
 			children = (
 				4E19B59C25A1D3CC004E0E23 /* Fashion_swiftuiApp.swift */,
+				4ECFA77025A208DC004EBC22 /* caching */,
 				4E19B5B025A1D3F9004E0E23 /* viewmodel */,
 				4E19B5AF25A1D3F4004E0E23 /* model */,
 				4E19B5AE25A1D3EF004E0E23 /* view */,
@@ -177,6 +180,14 @@
 			path = home;
 			sourceTree = "<group>";
 		};
+		4ECFA77025A208DC004EBC22 /* caching */ = {
+			isa = PBXGroup;
+			children = (
+				4ECFA77225A20900004EBC22 /* LocalJSONStore.swift */,
+			);
+			path = caching;
+			sourceTree = "<group>";
+		};
 		4ED54B2425A1F8C600679CE7 /* favorite */ = {
 			isa = PBXGroup;
 			children = (
@@ -270,6 +281,7 @@
 				4E19B5B225A1D405004E0E23 /* Home.swift in Sources */,
 				4ECB0DE125A1E2D800A375AC /* Item.swift in Sources */,
 				4ED54B2825A1F8E600679CE7 /* HomeFavorite.swift in Sources */,
+				4ECFA77325A20900004EBC22 /* LocalJSONStore.swift in Sources */,
 				4ECB0DDD25A1E2A700A375AC /* ItemView.swift in Sources */,
 				4ECB0DE425A1E2F800A375AC /* CartViewModel.swift in Sources */,
 				4ECB0DF425A1E7D100A375AC /* SecondHome.swift in Sources */,

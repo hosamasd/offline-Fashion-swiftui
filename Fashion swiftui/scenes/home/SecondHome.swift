@@ -116,17 +116,18 @@ struct SecondHome: View {
             
             // Row View....
             
+//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
+//
+//                withAnimation(Animation.linear){
+            
             LazyVGrid(columns: items) {
                 ForEach(vm.items) {card in
                     HomeItemView(car: card, items: $items)
-                    //tap gesture
-                        .onTapGesture{
-//                            self.link=card.link
-//                            self.show.toggle()
-                        }
                 }
             }
             .padding()
+//                }
+//            }
             
             //                Spacer()
             

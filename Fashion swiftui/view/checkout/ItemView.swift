@@ -73,10 +73,15 @@ struct ItemView: View {
                         
                         // Add - Sub Button...
                         
-                        Button(action: {
-                            
-                            if item.quantity > 1{item.quantity -= 1}
-                        }) {
+                        Button(action:
+                                {
+                        decreaseQuantiti(add: false)
+                                }
+//                                {
+//
+////                            if item.quantity > 1{item.quantity -= 1}
+//                        }
+                        ) {
                             
                             Image(systemName: "minus")
                                 .font(.system(size: 16, weight: .heavy))
@@ -90,7 +95,12 @@ struct ItemView: View {
                             .padding(.horizontal,10)
                             .background(Color.black.opacity(0.06))
                         
-                        Button(action: {item.quantity += 1}) {
+                        Button(action: {
+//                                item.quantity += 1
+                            
+                    decreaseQuantiti(add: true)
+                            }
+                        ) {
                             
                             Image(systemName: "plus")
                                 .font(.system(size: 16, weight: .heavy))
@@ -254,6 +264,24 @@ struct ItemView: View {
             }
             
         }
+    }
+    
+   
+    
+    func decreaseQuantiti(add:Bool)  {
+        var ss = cacheCheckout.storedValue ?? [Item]()
+        if add {
+            item.quantity += 1
+        }else {
+        if item.quantity > 1{item.quantity -= 1}
+        }
+        
+            if ss.contains(where: {$0.id==item.id}){
+                ss.removeAll(where: {$0.id==item.id})
+            }else{
+                ss.append(item)
+            }
+            cacheCheckout.save(ss)
     }
     
     func onEnd(value: DragGesture.Value){

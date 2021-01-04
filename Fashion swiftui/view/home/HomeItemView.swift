@@ -32,15 +32,18 @@ struct HomeItemView: View {
                     HStack{
                         
                         
-                        Button(action: {
+                        Button(action:
+//                                favorite
+                                {
                             isFavorite = true
                             if cartVM.favoritesItems.contains(where: {$0.id==car.id}){
                                 cartVM.favoritesItems.removeAll(where: {$0.id==car.id})
                             }else{
                                 cartVM.favoritesItems.append(car)
                             }
-                            
-                        }, label: {
+
+                        }
+                               , label: {
                             
                             Image(systemName: "suit.heart.fill")
                                 .foregroundColor(checkFavorite() ? .red : .gray)
@@ -51,15 +54,18 @@ struct HomeItemView: View {
                         
                         Spacer()
                         
-                        Button(action: {
+                        Button(action:
+//                                checkout
+                                {
                             isCheckout = true
                             if cartVM.checkoutItems.contains(where: {$0.id==car.id}){
                                 cartVM.checkoutItems.removeAll(where: {$0.id==car.id})
                             }else{
                                 cartVM.checkoutItems.append(car)
                             }
-                           
-                        }, label: {
+
+                        }
+                               , label: {
                             
                             Image(systemName: check() ? "cart.fill.badge.minus" : "cart.fill.badge.plus")
                                 .foregroundColor(.black)
@@ -119,5 +125,28 @@ struct HomeItemView: View {
     func checkFavorite() -> Bool {
         return cartVM.favoritesItems.contains(where: {car.id==$0.id})
     }
+    
+    func favorite()  {
+        isFavorite=true
+        var ss = cacheFavorite.storedValue ?? [Item]()
+        if ss.contains(where: {$0.id==car.id}){
+            ss.removeAll(where: {$0.id==car.id})
+        }else{
+            ss.append(car)
+        }
+        cacheFavorite.save(ss)
+    }
+    
+    func checkout()  {
+        isCheckout=true
+        var ss = cacheCheckout.storedValue ?? [Item]()
+        if ss.contains(where: {$0.id==car.id}){
+            ss.removeAll(where: {$0.id==car.id})
+        }else{
+            ss.append(car)
+        }
+        cacheCheckout.save(ss)
+    }
+
 }
 
