@@ -11,24 +11,12 @@ struct SecondHome: View {
     @State var search = ""
     @State var index = 0
     @State var tabIndex = 1
-    @StateObject var vm = CartViewModel()
+//    @StateObject var vm = CartViewModel()
+    @EnvironmentObject var vm: CartViewModel
+
     @State var items = Array(repeating: GridItem(spacing:15), count: 2)
     
     var body: some View {
-        
-        
-        //        ZStack{
-        //
-        //            Image("bg")
-        //                .resizable()
-        //                .aspectRatio(contentMode: .fill)
-        //                .frame(width: UIScreen.main.bounds.width)
-        //            // Bluring The View....
-        //                .blur(radius: 35,opaque: true)
-        
-        // ScrollView...
-        
-        //            VStack(spacing: 0){
         
         ScrollView{
             
@@ -111,14 +99,6 @@ struct SecondHome: View {
             }
             // due to all edges are ignored....
             .padding(.top,topHeight-20)
-//            .padding(.top,UIApplication.shared.windows.first?.safeAreaInsets.top)
-//            .padding(.bottom)
-            
-            // Row View....
-            
-//            DispatchQueue.main.asyncAfter(deadline: .now() + 1) {
-//
-//                withAnimation(Animation.linear){
             
             if !vm.items.isEmpty {
             
@@ -131,10 +111,6 @@ struct SecondHome: View {
             }else {
                 ProgressView()
             }
-//                }
-//            }
-            
-            //                Spacer()
             
         }
         // due to all edges are ignored....

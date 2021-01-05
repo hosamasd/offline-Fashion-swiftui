@@ -46,7 +46,8 @@ struct HomeCheckout: View {
                         ForEach(cartData.checkoutItems){item in
                             
                             // ItemView...
-                            ItemView(item: $cartData.checkoutItems[getIndex(item: item)],items: $cartData.checkoutItems,rightOrLeft: $rightOrLeft)
+                            ItemView(item: $cartData.checkoutItems[getIndex(item: item)],rightOrLeft: $rightOrLeft)
+//                            ItemView(item: $cartData.checkoutItems[getIndex(item: item)],items: $cartData.checkoutItems,rightOrLeft: $rightOrLeft)
                         }
                     }
                 }

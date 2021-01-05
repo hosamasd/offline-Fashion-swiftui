@@ -62,6 +62,13 @@ class CartViewModel: ObservableObject{
 //        }
     }
     
+    func deleteChecout(item:Item)  {
+        DispatchQueue.main.async {
+            self.checkoutItems.removeAll(where: {$0.id==item.id})
+            
+        }
+        print(checkoutItems)
+    }
     
     func addFavorite(item:Item)  {
         

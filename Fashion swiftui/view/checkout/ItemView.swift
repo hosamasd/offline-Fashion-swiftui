@@ -11,7 +11,10 @@ struct ItemView: View {
     
     // FOr Real Time Updates...
     @Binding var item: Item
-    @Binding var items: [Item]
+//    @Binding var items: [Item]
+    
+    @EnvironmentObject var cartData: CartViewModel
+
     @Binding var rightOrLeft: Bool
     @GestureState var isDragging = false
     
@@ -350,10 +353,13 @@ struct ItemView: View {
     // removing Item...
     
     func deleteItem(){
+        cartData.deleteChecout(item: item)
+//        cartData
+       
         
-        items.removeAll { (item) -> Bool in
-            return self.item.id == item.id
-        }
+//        items.removeAll { (item) -> Bool in
+//            return self.item.id == item.id
+//        }
     }
     
 }
